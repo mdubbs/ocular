@@ -9,7 +9,7 @@ try:
   conf = yaml.load(stream)
 except:
   print("Failed to open the database config file. Exiting..")
-  sys.exit(2)
+  sys.exit(1)
 
 # open the settings YAML and parse or exit
 try:
@@ -17,14 +17,14 @@ try:
   settings = yaml.load(stream)
 except:
   print("Failed to open the settings file. Exiting...")
-  sys.exit(2)
+  sys.exit(1)
 
 # attempt connection to MSSQL Server
 try:
   cnxn = pyodbc.connect(conf["db_conn"])
 except pyodbc.ProgrammingError:
   print("There was an error connecting to the database. Exiting..")
-  sys.exit(2)
+  sys.exit(1)
 
 # set cursor and execute query on application log
 cursor = cnxn.cursor()
